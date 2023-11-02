@@ -17,13 +17,17 @@ class FavoritesPage extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(20),
-          child: Text('You have '
-              '${appState.favorites.length} favorites:'),
+          child: Center(
+            child: Text('You have '
+                '${appState.favorites.length} favorites:'),
+          ),
         ),
         for (var pair in appState.favorites)
-          ListTile(
-            leading: Icon(Icons.favorite),
-            title: Text(pair.asLowerCase),
+          Center(
+            child: ListTile(
+              leading: Icon(Icons.favorite),
+              title: Text(pair.asLowerCase),
+            ),
           ),
       ],
     );
