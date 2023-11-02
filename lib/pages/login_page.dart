@@ -12,7 +12,9 @@ class LoginPage extends StatelessWidget {
 
   // sign user in method
 
-  void signUserIn() {}
+  void signUserIn() {
+    
+  }
 
 
 
