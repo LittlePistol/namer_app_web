@@ -1,10 +1,10 @@
 import 'package:english_words/english_words.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:namer_app_web/pages/login_page.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
+import 'pages/auth_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,12 +22,13 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
-        title: 'Namer App',
+        title: 'Namer App Web',
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
         ),
-        home: LoginPage(),
+        debugShowCheckedModeBanner: false,
+        home: AuthPage(),
       ),
     );
   }

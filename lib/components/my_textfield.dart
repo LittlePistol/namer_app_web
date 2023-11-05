@@ -1,7 +1,7 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 
-class MyTextField extends StatelessWidget {
+class MyTextField extends StatefulWidget {
   final dynamic controller;
   final String hintText;
   final bool obscureText;
@@ -14,6 +14,11 @@ class MyTextField extends StatelessWidget {
   });
 
   @override
+  State<MyTextField> createState() => _MyTextFieldState();
+}
+
+class _MyTextFieldState extends State<MyTextField> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -23,8 +28,8 @@ class MyTextField extends StatelessWidget {
           maxHeight: 400.0, // максимальная высота
         ),
         child: TextField(
-          controller: controller,
-          obscureText: obscureText,
+          controller: widget.controller,
+          obscureText: widget.obscureText,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.white),
@@ -34,7 +39,7 @@ class MyTextField extends StatelessWidget {
             ),
             fillColor: Colors.grey.shade200,
             filled: true,
-            hintText: hintText,
+            hintText: widget.hintText,
             hintStyle: TextStyle(color: Color.fromARGB(255, 180, 180, 180)),
           ),
         ),

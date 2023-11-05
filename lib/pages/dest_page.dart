@@ -1,5 +1,6 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:namer_app_web/pages/home_page.dart';
 
 import 'favorite_page.dart';
 import 'generator_page.dart';
@@ -16,9 +17,12 @@ class MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = GeneratorPage();
+        page = HomePage();
         break;
       case 1:
+        page = GeneratorPage();
+        break;
+      case 2:
         page = FavoritesPage();
         break;
       default:
@@ -31,6 +35,10 @@ class MyHomePageState extends State<MyHomePage> {
             child: NavigationRail(
               extended: false,
               destinations: [
+                NavigationRailDestination(
+                  icon: Icon(Icons.account_box),
+                  label: Text('Profile'),
+                ),
                 NavigationRailDestination(
                   icon: Icon(Icons.home),
                   label: Text('Home'),
