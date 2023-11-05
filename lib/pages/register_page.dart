@@ -4,21 +4,22 @@ import 'package:namer_app_web/Components/my_Textfield.dart';
 import 'package:namer_app_web/components/my_button.dart';
 import 'package:namer_app_web/components/square_tile.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   final Function()? onTap;
-  const LoginPage({super.key, required this.onTap});
+  const RegisterPage({super.key, required this.onTap});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   // text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
-  // sign user in method
-  void signUserIn() async {
+  // sign user UP method
+  void signUserUp() async {
     // show a loading circle
     showDialog(
       context: context,
@@ -29,12 +30,20 @@ class _LoginPageState extends State<LoginPage> {
       },
     );
 
-    //try sign user in
+    //try creating the user
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
+      //check if the password is the same
+
+      if (passwordController.text == confirmPasswordController.text) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+      } else {
+        //show error message
+        Navigator.pop(context);
+        showErrorMessage('Passwords don\'t match');
+      }
       //pop the circle
 
       Navigator.pop(context);
@@ -69,23 +78,22 @@ class _LoginPageState extends State<LoginPage> {
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               //logo
               Icon(
-                Icons.lock,
+                Icons.account_box,
                 size: 80,
               ),
 
-              SizedBox(height: 30),
+              SizedBox(height: 20),
 
-              //welcome back
+              //Lets create an account
               Text(
-                'Welcome back, you\'ve been missed',
+                'Lets create an account!',
                 style: TextStyle(
                   color: Colors.grey[700],
                   fontSize: 16,
                 ),
               ),
 
-              SizedBox(height: 30),
-
+              SizedBox(height: 20),
               //Email textfield
 
               MyTextField(
@@ -96,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
 
               //password textfield
 
-              SizedBox(height: 20),
+              SizedBox(height: 10),
 
               MyTextField(
                 controller: passwordController,
@@ -106,20 +114,21 @@ class _LoginPageState extends State<LoginPage> {
 
               SizedBox(height: 10),
 
-              //forgot password?
+              //CONFIRM password textfield
 
-              Text(
-                'Forgot password?',
-                style: TextStyle(color: Colors.grey[500]),
+              MyTextField(
+                controller: confirmPasswordController,
+                hintText: 'Confirm password',
+                obscureText: true,
               ),
 
               SizedBox(height: 20),
 
-              //Sign in button
+              //Sign up button
 
               MyButton(
-                onTap: signUserIn,
-                text: 'Sign in',
+                onTap: signUserUp,
+                text: 'Sign up',
               ),
 
               SizedBox(height: 20),
@@ -166,14 +175,14 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Not a member?',
+                    'Already have an account?',
                     style: TextStyle(color: Colors.grey),
                   ),
                   const SizedBox(width: 4),
                   GestureDetector(
                     onTap: widget.onTap,
                     child: Text(
-                      'Register now',
+                      'Login now',
                       style: TextStyle(
                           color: Colors.blue, fontWeight: FontWeight.bold),
                     ),
