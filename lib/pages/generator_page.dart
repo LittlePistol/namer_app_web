@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:namer_app_web/main.dart';
 import 'package:namer_app_web/pages/dest_page.dart';
